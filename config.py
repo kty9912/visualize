@@ -2,7 +2,7 @@
 from datetime import datetime
 
 # 데이터 조회 기간
-START_DATE = "2022-01-01"
+START_DATE = "2018-01-01"
 END_DATE = datetime.today().strftime('%Y-%m-%d')
 
 
@@ -11,17 +11,25 @@ ASSETS = {
     '국내주식': [
         {'name': '삼성전자', 'ticker': '005930.KS'},
         {'name': 'SK하이닉스', 'ticker': '000660.KS'},
-        {'name': 'NAVER', 'ticker': '035420.KS'}
+        {'name': 'NAVER', 'ticker': '035420.KS'},
+        {'name': '현대차', 'ticker': '005380.KS'},
+        {'name': 'LG화학', 'ticker': '051910.KS'},
+        {'name': '셀트리온', 'ticker': '068270.KS'},
+        {'name': '삼성바이오로직스', 'ticker': '207940.KS'},
+        {'name': '기아', 'ticker': '000270.KS'},
+        {'name': '포스코홀딩스', 'ticker': '005490.KS'},
+        {'name': 'SK바이오팜', 'ticker': '326030.KS'}
     ],
     '해외주식': [
         {'name': 'Apple', 'ticker': 'AAPL'},
         {'name': 'NVIDIA', 'ticker': 'NVDA'},
-        {'name': 'Tesla', 'ticker': 'TSLA'}
+        {'name': 'Tesla', 'ticker': 'TSLA'},
+        {'name': 'Microsoft', 'ticker': 'MSFT'},
+        {'name': 'Amazon', 'ticker': 'AMZN'},
+        {'name': 'Alphabet (Google)', 'ticker': 'GOOGL'}
     ],
     '채권': [
-        # 국채 (만기 20년 이상 미국채)
         {'name': '미국 장기채', 'ticker': 'TLT'},
-        # 회사채 (투자등급 미국 회사채)
         {'name': '미국 회사채', 'ticker': 'LQD'}
     ],
     '원자재/암호화폐': [
