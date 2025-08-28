@@ -2,13 +2,18 @@
 import yfinance as yf
 import pandas as pd
 import streamlit as st
+from curl_cffi import requests as curl_requests 
+# 💡 curl_cffi 라이브러리의 requests를 임포트
 from config import START_DATE, END_DATE
+
+# 💡💡💡 curl_cffi를 사용하여 세션 객체를 만들고 SSL 검증을 비활성화합니다.
+session = curl_requests.Session(impersonate="chrome110", verify=False)
+session.headers['User-Agent'] = 'Mozilla/5.0'
 
 @st.cache_data
 def fetch_data(assets_config: dict):
-    # 이 함수는 수정할 필요 없습니다. (이전과 동일)
     all_tickers = [asset['ticker'] for asset_class in assets_config.values() for asset in asset_class]
-    raw_data = yf.download(all_tickers, start=START_DATE, end=END_DATE)
+    raw_data = yf.download(all_tickers, start=START_DATE, end=END_DATE, session=session)
 
     if raw_data.empty:
         st.error("데이터를 가져오는 데 실패했습니다. 티커가 올바른지 확인해주세요.")
@@ -46,7 +51,7 @@ def fetch_ohlcv(ticker: str):
     """
     지정된 티커의 OHLCV 데이터를 가져와서 어떤 데이터 구조에도 대응할 수 있도록 완벽하게 정제합니다.
     """
-    df = yf.download(ticker, start=START_DATE, end=END_DATE)
+    df = yf.download(ticker, start=START_DATE, end=END_DATE, session=session)
 
     if df.empty:
         return pd.DataFrame()
@@ -70,7 +75,7 @@ def fetch_ohlcv(ticker: str):
 @st.cache_data
 def fetch_benchmark_data(ticker: str):
     """지정된 벤치마크 지수의 종가 데이터를 가져옵니다."""
-    df = yf.download(ticker, start=START_DATE, end=END_DATE)
+    df = yf.download(ticker, start=START_DATE, end=END_DATE, session=session)
     if df.empty:
         return pd.Series(dtype='float64')
     
