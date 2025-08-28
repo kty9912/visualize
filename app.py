@@ -5,7 +5,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 from scipy.signal import find_peaks
 from config import ASSETS, BENCHMARK_CONFIG
-from data_fetcher import fetch_data, fetch_benchmark_data
+from data_fetcher import fetch_data, fetch_benchmark_data, fetch_risk_free_rate 
 from portfolio_analyzer import calculate_returns, get_portfolio_performance
 from datetime import datetime
 
@@ -94,12 +94,13 @@ with tab1:
         st.plotly_chart(fig_sunburst, use_container_width=True)
         
         st.header("📈 포트폴리오 주요 성과")
-        annual_return, volatility, sharpe = get_portfolio_performance(weight_list, daily_returns)
+        risk_free_rate = fetch_risk_free_rate()
+        annual_return, volatility, sharpe = get_portfolio_performance(weight_list, daily_returns, risk_free_rate)
         col1, col2, col3 = st.columns(3)
         col1.metric("연평균 수익률", f"{annual_return*100:.2f}%")
         col2.metric("연간 변동성", f"{volatility*100:.2f}%")
-        col3.metric("샤프 지수", f"{sharpe:.2f}")
-
+        col3.metric("샤프 지수", f"{sharpe:.2f}", help=f"무위험 수익률 {risk_free_rate*100:.2f}% 기준")
+        
         st.header("🆚 포트폴리오 vs. 벤치마크")
         benchmark_data = fetch_benchmark_data(BENCHMARK_CONFIG['ticker'])
         if not benchmark_data.empty:

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>금융 포트폴리오 대시보드 - 프로젝트 인포그래픽</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+        }
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .flowchart-node {
+            border: 2px solid #4A5568;
+            background-color: #2D3748;
+            color: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            min-width: 120px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        .flowchart-arrow {
+            position: relative;
+            width: 2px;
+            background-color: #4A5568;
+            margin: 0.5rem auto;
+        }
+        .flowchart-arrow::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 8px solid #4A5568;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100">
+    <!-- 
+    Chosen Color Palette: Energetic & Playful
+    HEX Codes: #00F5D4, #00CCBF, #9B5DE5, #F15BB5, #FEE440
+    Confirmation: NEITHER Mermaid JS NOR SVG were used in this output.
+    -->
+    <div class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center mb-16">
+            <h1 class="text-4xl md:text-6xl font-black tracking-wider text-white">금융 포트폴리오 대시보드</h1>
+            <p class="text-xl md:text-2xl font-light text-[#00F5D4] mt-2">프로젝트 요약</p>
+        </header>
+
+        <section id="overview" class="mb-20">
+            <div class="max-w-3xl mx-auto text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">프로젝트 개요</h2>
+                <p class="text-gray-400">
+                    사용자가 자유롭게 자신만의 투자 포트폴리오를 구성, 분석 및 시뮬레이션할 수 있도록 설계된 동적 대화형 웹 애플리케이션입니다. 데이터 수집부터 시각화까지 전체 데이터 파이프라인을 자동화하여 사용자가 실시간으로 투자 전략을 테스트하고 개선할 수 있도록 지원합니다.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div class="bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700">
+                    <div class="text-5xl mb-3">🎯</div>
+                    <h3 class="text-xl font-bold text-[#9B5DE5]">사용자 중심 설계</h3>
+                    <p class="text-gray-400 mt-2">누구나 쉽게 투자 아이디어를 테스트하고 검증할 수 있는 직관적인 인터페이스.</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700">
+                    <div class="text-5xl mb-3">🔄</div>
+                    <h3 class="text-xl font-bold text-[#F15BB5]">데이터 자동화</h3>
+                    <p class="text-gray-400 mt-2">수집, 처리, 분석, 시각화에 이르는 데이터 생명주기 전체를 자동화.</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700">
+                    <div class="text-5xl mb-3">🧱</div>
+                    <h3 class="text-xl font-bold text-[#FEE440]">모듈형 아키텍처</h3>
+                    <p class="text-gray-400 mt-2">유지보수와 향후 기능 확장을 용이하게 하는 견고하고 확장 가능한 설계.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="architecture" class="mb-20">
+            <div class="max-w-3xl mx-auto text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">시스템 아키텍처</h2>
+                <p class="text-gray-400">
+                    안정성과 확장성을 보장하기 위해, 각 구성 요소가 명확하고 독립적인 역할을 수행하는 모듈형 아키텍처를 기반으로 프로젝트를 구축했습니다. 이러한 관심사 분리 원칙은 문제 해결 및 신규 기능 추가 효율성을 높이는 핵심이었습니다.
+                </p>
+            </div>
+            <div class="bg-gray-800 p-8 rounded-lg shadow-lg border border-gray-700 flex flex-col items-center">
+                 <h3 class="text-2xl font-semibold mb-6">프로젝트 흐름 및 기술 스택</h3>
+                 <div class="flowchart-node w-full md:w-1/2">
+                    <p class="font-bold text-lg">사용자 인터페이스</p>
+                    <p class="text-sm text-gray-300">(app.py)</p>
+                    <p class="text-xs mt-1 font-mono bg-gray-700 rounded px-2 py-1 inline-block">Streamlit, Plotly</p>
+                 </div>
+                 <div class="flowchart-arrow h-8"></div>
+                 <div class="flex flex-col md:flex-row justify-around w-full gap-4">
+                    <div class="flowchart-node flex-1">
+                        <p class="font-bold text-lg">환경 설정</p>
+                        <p class="text-sm text-gray-300">(config.py)</p>
+                         <p class="text-xs mt-1 font-mono bg-gray-700 rounded px-2 py-1 inline-block">Python</p>
+                    </div>
+                    <div class="flowchart-node flex-1">
+                        <p class="font-bold text-lg">데이터 수집</p>
+                        <p class="text-sm text-gray-300">(data_fetcher.py)</p>
+                         <p class="text-xs mt-1 font-mono bg-gray-700 rounded px-2 py-1 inline-block">yfinance</p>
+                    </div>
+                    <div class="flowchart-node flex-1">
+                        <p class="font-bold text-lg">데이터 분석</p>
+                        <p class="text-sm text-gray-300">(portfolio_analyzer.py)</p>
+                         <p class="text-xs mt-1 font-mono bg-gray-700 rounded px-2 py-1 inline-block">Pandas, Scipy</p>
+                    </div>
+                 </div>
+            </div>
+        </section>
+
+        <section id="features" class="mb-20">
+             <div class="max-w-3xl mx-auto text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">핵심 기능</h2>
+                <p class="text-gray-400">
+                    대시보드는 초기 포트폴리오 구성부터 심층적인 성과 검증에 이르기까지 포괄적인 분석 경험을 제공하는 세 가지 주요 기능을 갖추고 있습니다.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="bg-gray-800 p-8 rounded-lg shadow-lg border border-gray-700">
+                    <h3 class="text-2xl font-bold text-center mb-4 text-[#00F5D4]">동적 포트폴리오 구성</h3>
+                    <p class="text-gray-400 mb-6 text-center">사용자는 기본 자산 목록에서 선택하거나 원하는 종목 티커를 직접 추가할 수 있습니다. 확장 가능한 메뉴와 5% 단위 슬라이더는 비중 할당을 직관적이고 정확하게 만듭니다.</p>
+                    <div class="chart-container h-64 md:h-80">
+                        <canvas id="compositionChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-gray-800 p-8 rounded-lg shadow-lg border border-gray-700">
+                    <h3 class="text-2xl font-bold text-center mb-4 text-[#9B5DE5]">실시간 성과 분석</h3>
+                     <p class="text-gray-400 mb-6 text-center">비중이 조정될 때마다 연평균 수익률, 변동성, 샤프 지수와 같은 핵심 성과 지표(KPI)가 즉시 재계산되어 포트폴리오의 위험-수익 프로필에 대한 즉각적인 피드백을 제공합니다.</p>
+                    <div class="chart-container h-64 md:h-80">
+                        <canvas id="kpiChart"></canvas>
+                    </div>
+                </div>
+                <div class="lg:col-span-2 bg-gray-800 p-8 rounded-lg shadow-lg border border-gray-700">
+                    <h3 class="text-2xl font-bold text-center mb-4 text-[#F15BB5]">백테스팅 및 비교 분석</h3>
+                    <p class="text-gray-400 mb-6 text-center max-w-2xl mx-auto">사용자의 포트폴리오를 S&P 500과 같은 시장 벤치마크와 비교하여 백테스트를 수행하며, 중요한 고점과 저점을 자동으로 강조 표시합니다. 또한 여러 포트폴리오를 저장하고 사용자 지정 기간 내에서 성과를 나란히 비교할 수 있습니다.</p>
+                    <div class="chart-container">
+                        <canvas id="backtestingChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="challenges" class="mb-20">
+            <div class="max-w-3xl mx-auto text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">도전 과제 및 해결 방안</h2>
+                <p class="text-gray-400">
+                    개발 과정에는 몇 가지 기술적인 장애물 극복이 포함되었습니다. 이러한 도전 과제들은 최종적으로 견고한 애플리케이션 아키텍처를 형성하는 데 중추적인 역할을 했습니다.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700">
+                    <h3 class="text-xl font-bold text-[#FEE440] mb-3">도전 1: 라이브러리 오류</h3>
+                    <p class="font-semibold text-gray-300">문제:</p>
+                    <p class="text-gray-400 mb-4">데이터 소스에서 반환되는 일관성 없는 데이터 형식과 시각화 라이브러리의 엄격한 요구사항으로 인해 `KeyError` 및 `ValueError` 예외가 빈번하게 발생했습니다.</p>
+                    <p class="font-semibold text-gray-300">해결:</p>
+                    <p class="text-gray-400">`data_fetcher.py`에 강력한 데이터 정제 계층을 구현했습니다. 이 계층은 컬럼 이름을 방어적으로 확인하고, 다양한 데이터 구조를 처리하며, 모든 데이터가 분석 엔진에 도달하기 전에 깨끗하게 정제되도록 보장합니다.</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700">
+                    <h3 class="text-xl font-bold text-[#00CCBF] mb-3">도전 2: 네트워크 보안</h3>
+                    <p class="font-semibold text-gray-300">문제:</p>
+                    <p class="text-gray-400 mb-4">방화벽이 연결을 차단하여 `SSLError`가 발생하는 등 보안이 강화된 네트워크 환경(예: 회사)에서 데이터 수집이 실패했습니다.</p>
+                    <p class="font-semibold text-gray-300">해결:</p>
+                    <p class="text-gray-400">`yfinance` 라이브러리의 최신 요구사항을 연구하고 `curl_cffi` 라이브러리를 통합하여 SSL 인증서 검증을 우회하는 사용자 지정 세션을 생성함으로써 제한된 환경에서도 데이터에 접근할 수 있도록 했습니다.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="future" class="text-center">
+            <h2 class="text-3xl font-bold mb-4">결론 및 향후 계획</h2>
+            <p class="text-gray-400 max-w-3xl mx-auto mb-8">
+                이 프로젝트는 성공적으로 투자 전략 분석을 위한 동적 플랫폼으로 발전했습니다. 모듈형 아키텍처는 민첩한 개발과 문제 해결에 매우 귀중한 자산임이 입증되었습니다. 향후 개선 사항은 더 깊이 있는 분석 기능 추가에 중점을 둘 것입니다.
+            </p>
+             <div class="flex flex-col md:flex-row justify-center items-center gap-4">
+                <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
+                    <p class="font-bold text-[#9B5DE5]">1. 포트폴리오 최적화</p>
+                    <p class="text-sm text-gray-400">현대 포트폴리오 이론(MPT)을 구현하여 최적의 자산 비중 추천.</p>
+                </div>
+                <div class="text-gray-600 font-bold text-2xl hidden md:block">&rarr;</div>
+                <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
+                    <p class="font-bold text-[#F15BB5]">2. 고급 리스크 지표</p>
+                    <p class="text-sm text-gray-400">최대 낙폭(MDD), VaR 등 다양한 리스크 지표 추가.</p>
+                </div>
+                 <div class="text-gray-600 font-bold text-2xl hidden md:block">&rarr;</div>
+                <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
+                    <p class="font-bold text-[#FEE440]">3. 데이터베이스 연동</p>
+                    <p class="text-sm text-gray-400">Firestore와 같은 DB를 사용하여 사용자 포트폴리오 영구 저장.</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        const tooltipPlugin = {
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        title: function(tooltipItems) {
+                            const item = tooltipItems[0];
+                            let label = item.chart.data.labels[item.dataIndex];
+                            if (Array.isArray(label)) {
+                                return label.join(' ');
+                            }
+                            return label;
+                        }
+                    }
+                },
+                legend: {
+                    labels: {
+                        color: '#D1D5DB'
+                    }
+                }
+            }
+        };
+        
+        const chartOptions = {
+            maintainAspectRatio: false,
+            ...tooltipPlugin
+        };
+
+        const compositionCtx = document.getElementById('compositionChart').getContext('2d');
+        new Chart(compositionCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['글로벌 주식', '채권', ['대체 자산', '(금, 암호화폐)']],
+                datasets: [{
+                    label: '포트폴리오 구성',
+                    data: [60, 25, 15],
+                    backgroundColor: ['#9B5DE5', '#F15BB5', '#FEE440'],
+                    borderColor: '#1F2937',
+                    borderWidth: 4
+                }]
+            },
+            options: {
+                ...chartOptions,
+                plugins: { ...chartOptions.plugins, legend: { ...chartOptions.plugins.legend, position: 'top' } }
+            }
+        });
+
+        const kpiCtx = document.getElementById('kpiChart').getContext('2d');
+        new Chart(kpiCtx, {
+            type: 'radar',
+            data: {
+                labels: ['연평균 수익률', '샤프 지수', '낮은 변동성', ['성장 잠재력'], '분산투자 효과'],
+                datasets: [{
+                    label: '공격적인 포트폴리오',
+                    data: [9, 7, 3, 8, 6],
+                    backgroundColor: 'rgba(241, 91, 181, 0.4)',
+                    borderColor: '#F15BB5',
+                    pointBackgroundColor: '#F15BB5',
+                    borderWidth: 2
+                }, {
+                    label: '균형잡힌 포트폴리오',
+                    data: [6, 8, 7, 5, 8],
+                    backgroundColor: 'rgba(0, 245, 212, 0.4)',
+                    borderColor: '#00F5D4',
+                    pointBackgroundColor: '#00F5D4',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                ...chartOptions,
+                scales: {
+                    r: {
+                        angleLines: { color: 'rgba(255, 255, 255, 0.2)' },
+                        grid: { color: 'rgba(255, 255, 255, 0.2)' },
+                        pointLabels: { color: '#D1D5DB', font: { size: 12 } },
+                        ticks: {
+                            color: '#1F2937',
+                            backdropColor: 'rgba(255, 255, 255, 0.8)',
+                            borderRadius: 4
+                        }
+                    }
+                }
+            }
+        });
+
+        const backtestingCtx = document.getElementById('backtestingChart').getContext('2d');
+        const labels = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'];
+        const portfolioData = [1.0, 1.05, 0.98, 1.12, 1.20, 1.15, 1.25, 1.35, 1.28, 1.40, 1.55, 1.50];
+        const benchmarkData = [1.0, 1.02, 1.01, 1.08, 1.10, 1.12, 1.18, 1.22, 1.19, 1.25, 1.30, 1.32];
+        new Chart(backtestingCtx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: '내 포트폴리오',
+                    data: portfolioData,
+                    borderColor: '#00F5D4',
+                    backgroundColor: 'rgba(0, 245, 212, 0.1)',
+                    fill: true,
+                    tension: 0.3
+                }, {
+                    label: 'S&P 500 벤치마크',
+                    data: benchmarkData,
+                    borderColor: '#9B5DE5',
+                    borderDash: [5, 5],
+                    fill: false,
+                    tension: 0.3
+                }]
+            },
+            options: {
+                ...chartOptions,
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        ticks: { color: '#D1D5DB' }
+                    },
+                    x: {
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        ticks: { color: '#D1D5DB' }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

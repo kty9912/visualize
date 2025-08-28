@@ -84,3 +84,16 @@ def fetch_benchmark_data(ticker: str):
         return df['Adj Close']
     else:
         return df['Close']
+    
+@st.cache_data
+def fetch_risk_free_rate():
+    """미국 10년 국채 금리(무위험 수익률)를 가져옵니다."""
+    # ^TNX 티커는 금리를 10배한 값을 제공하므로 100으로 나눠서 소수점으로 만듭니다.
+    try:
+        tnx = yf.Ticker("^TNX")
+        # 가장 최근의 종가(Close)를 가져옵니다.
+        risk_free_rate = tnx.history(period="1d")['Close'].iloc[-1] / 100
+        return risk_free_rate
+    except (IndexError, KeyError):
+        # 데이터를 가져오지 못할 경우 기본값(예: 4%)을 사용
+        return 0.04
