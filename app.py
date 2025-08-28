@@ -166,3 +166,51 @@ with tab2:
         if not all_comparison_returns.empty:
             normalized_returns = all_comparison_returns / all_comparison_returns.iloc[0]
             st.line_chart(normalized_returns)
+
+st.header("🗺️ 프로젝트 전체 흐름도")
+with st.expander("플로우차트로 전체 과정 보기"):
+    flowchart = """
+    digraph G {
+        rankdir="TB";
+        node [shape=box, style="rounded,filled", fillcolor="#f8f9fa", fontname="sans-serif"];
+        edge [fontname="sans-serif"];
+
+        subgraph cluster_ui {
+            label = "1. 사용자 인터페이스 (app.py)";
+            bgcolor="#e9ecef";
+            UI [label="사용자 입력 (비중 조절 슬라이더)"];
+        }
+
+        subgraph cluster_data {
+            label = "2. 데이터 계층";
+            bgcolor="#dee2e6";
+            Config [label="설정값 로드 (config.py)"];
+            Fetcher [label="데이터 수집 (data_fetcher.py)"];
+        }
+
+        subgraph cluster_logic {
+            label = "3. 분석 계층";
+            bgcolor="#ced4da";
+            Analyzer [label="성과 분석 (portfolio_analyzer.py)"];
+        }
+
+        subgraph cluster_view {
+            label = "4. 시각화 계층 (app.py)";
+            bgcolor="#adb5bd";
+            PieChart [label="썬버스트 차트 (비중)"];
+            Metrics [label="성과 지표 (수익률, 변동성 등)"];
+            LineChart1 [label="누적 수익률 그래프"];
+            LineChart2 [label="벤치마크 비교 그래프"];
+        }
+
+        UI -> Config [label="  1. 설정 요청"];
+        Config -> Fetcher [label="  2. 자산 목록 전달"];
+        Fetcher -> Analyzer [label="  3. 가격 데이터 전달"];
+        UI -> Analyzer [label="  4. 포트폴리오 비중 전달"];
+        Analyzer -> Metrics [label="  5. 분석 결과 전달"];
+        Analyzer -> LineChart1 [label="  5. 분석 결과 전달"];
+        Analyzer -> LineChart2 [label="  5. 분석 결과 전달"];
+        UI -> PieChart [label="  비중 직접 전달"];
+    }
+    """
+    st.graphviz_chart(flowchart)
